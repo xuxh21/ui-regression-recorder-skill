@@ -59,56 +59,113 @@ export async function verifyTableRow(page: Page, rowText: string | RegExp) {
   await expect(page.getByText(rowText).first()).toBeVisible();
 }
 
-export async function openResearchSpace(page: Page, spaceName: string) {
-  const commonSpace = page.getByRole('listitem').filter({ hasText: spaceName }).first();
-  if (await commonSpace.isVisible({ timeout: 3000 }).catch(() => false)) {
-    await commonSpace.click();
+export async function openNamedRow(page: Page, rowName: string, options: { searchFieldName?: string; searchButtonName?: string } = {}) {
+  const commonRow = page.getByRole('listitem').filter({ hasText: rowName }).first();
+  if (await commonRow.isVisible({ timeout: 3000 }).catch(() => false)) {
+    await commonRow.click();
     return;
   }
 
-  await page.getByRole('textbox', { name: '研发空间名称' }).fill(spaceName);
-  await page.getByRole('button', { name: '查询' }).click();
-  await page.getByRole('row').filter({ hasText: spaceName }).first().click();
+  const searchFieldName = options.searchFieldName ?? '名称';
+  const searchButtonName = options.searchButtonName ?? '查询';
+
+  await page.getByRole('textbox', { name: searchFieldName }).fill(rowName);
+  await page.getByRole('button', { name: searchButtonName }).click();
+  await page.getByRole('row').filter({ hasText: rowName }).first().click();
 }
 
-export async function openDesignAssetType(page: Page, assetType: string) {
-  await page.getByText('设计管理', { exact: true }).click();
-  await page.getByText(assetType, { exact: true }).click();
-  await expect(page.getByRole('navigation').getByText(assetType).or(page.getByText(assetType).first())).toBeVisible();
+export async function openSection(page: Page, sectionName: string) {
+  await page.getByText(sectionName, { exact: true }).click();
+  await expect(page.getByRole('navigation').getByText(sectionName).or(page.getByText(sectionName).first())).toBeVisible();
 }
 
-export async function createWorkspace(page: Page, data: { name: string; description?: string }) {
-  await page.locator('header').filter({ hasText: '工作区' }).locator('img').click();
-  await page.getByRole('textbox', { name: '名称*' }).fill(data.name);
+export type CreateNamedRecordOptions = {
+  openButtonName?: string | RegExp;
+  nameFieldName?: string | RegExp;
+  descriptionFieldName?: string | RegExp;
+  confirmButtonName?: string | RegExp;
+  expected?: 'success' | 'duplicate';
+  duplicateMessage?: string | RegExp;
+};
+
+export async function createNamedRecord(
+  page: Page,
+  data: { name: string; description?: string },
+  options: CreateNamedRecordOptions = {},
+) {
+  const openButtonName = options.openButtonName ?? /新建|创建|新增|Add|New|Create/i;
+  const nameFieldName = options.nameFieldName ?? '名称*';
+  const descriptionFieldName = options.descriptionFieldName ?? '描述';
+  const confirmButtonName = options.confirmButtonName ?? /确定|保存|提交|Create|Save|Submit/i;
+  const expected = options.expected ?? 'success';
+  const duplicateMessage = options.duplicateMessage ?? /已存在|重复|重名|already exists|duplicate/i;
+
+  await page.getByRole('button', { name: openButtonName }).first().click();
+  await page.getByRole('textbox', { name: nameFieldName }).fill(data.name);
   if (data.description !== undefined) {
-    await page.getByRole('textbox', { name: '描述' }).fill(data.description);
+    await page.getByRole('textbox', { name: descriptionFieldName }).fill(data.description);
   }
-  await page.getByRole('button', { name: '确定' }).click();
+  await page.getByRole('button', { name: confirmButtonName }).click();
+
+  if (expected === 'duplicate') {
+    await expect(page.getByText(duplicateMessage).first()).toBeVisible();
+    return;
+  }
+
   await verifyTableRow(page, data.name);
 }
 
-export type PrototypeData = {
-  name: string;
-  product: string;
-  system: string;
-  project: string;
+export type FormField = {
+  label: string | RegExp;
+  value: string;
+  kind?: 'textbox' | 'combobox';
 };
 
-export async function createPrototypeFromCurrentPage(page: Page, data: PrototypeData) {
-  await page.getByRole('button', { name: '创建原型' }).click();
-  await page.getByRole('textbox', { name: '原型名称*' }).fill(data.name);
-  await selectOption(page, '产品/平台', data.product);
-  await selectOption(page, '所属系统', data.system);
-  await page.getByLabel('创建原型').getByText(/所属项目请选择|所属项目/).click();
-  await page.getByRole('option', { name: data.project }).click();
+export async function submitLabeledForm(
+  page: Page,
+  fields: FormField[],
+  submitButtonName: string | RegExp = /确定|保存|提交|Create|Save|Submit/i,
+) {
+  for (const field of fields) {
+    if (field.kind === 'combobox') {
+      await selectOption(page, field.label, field.value);
+      continue;
+    }
+    await page.getByRole('textbox', { name: field.label }).fill(field.value);
+  }
+
+  await page.getByRole('button', { name: submitButtonName }).click();
+}
+
+export type CurrentPageItemData = {
+  name: string;
+  category?: string;
+  owner?: string;
+  status?: string;
+};
+
+export async function createItemFromCurrentPage(page: Page, data: CurrentPageItemData) {
+  await page.getByRole('button', { name: /创建|新增|Add|New|Create/i }).first().click();
+  await page.getByRole('textbox', { name: /名称|Name/ }).fill(data.name);
+
+  if (data.category) {
+    await selectOption(page, /分类|Category/, data.category);
+  }
+
+  if (data.owner) {
+    await selectOption(page, /负责人|Owner/, data.owner);
+  }
+
+  if (data.status) {
+    await selectOption(page, /状态|Status/, data.status);
+  }
 
   const popupPromise = page.waitForEvent('popup', { timeout: 12000 }).catch(() => null);
-  await page.getByRole('button', { name: '确定' }).click();
+  await page.getByRole('button', { name: /确定|保存|提交|Create|Save|Submit/i }).click();
   const popup = await popupPromise;
 
   if (popup) {
     await popup.waitForLoadState('domcontentloaded').catch(() => {});
-    await expect(popup).toHaveURL(/\/proto\/design\//);
   }
 
   await verifyTableRow(page, data.name);

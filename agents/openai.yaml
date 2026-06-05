@@ -1,4 +1,4 @@
 interface:
   display_name: "UI Regression Recorder"
-  short_description: "Initialize, record, clean, and run UI regression flows"
-  default_prompt: "Use this skill to initialize this project for UI regression, record operations, extract shared helpers, and run named flows safely."
+  short_description: "Plan, split, compose, and run reusable UI regression flows"
+  default_prompt: "Use this skill to initialize UI regression, decompose full flows into reusable capabilities, and assemble new flows from existing helpers or the current Chrome page."
