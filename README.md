@@ -8,7 +8,7 @@ Turn one human UI flow into reusable automation capabilities, then assemble new 
 
 > This skill is not about saving a one-off screen recording script. It decomposes a full business flow into reusable capabilities, splits the script into maintainable parts, and assembles the smallest runnable regression for a new request.
 >
-> Latest stable release: [v0.1.1](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.1)
+> Latest stable release: [v0.1.3](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.3)
 >
 > All releases: [GitHub Releases](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
 
@@ -216,7 +216,7 @@ Recommended when the target agent already has the built-in Codex skill installer
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
-  --ref v0.1.1 \
+  --ref v0.1.3 \
   --path . \
   --name ui-regression-recorder
 ```
@@ -228,7 +228,7 @@ This keeps the install pinned to a known release instead of drifting with `main`
 Example prompt:
 
 ```text
-Use $skill-installer. Install https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.1 as ui-regression-recorder.
+Use $skill-installer. Install https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.3 as ui-regression-recorder.
 ```
 
 ### Option B2. Copy-and-send prompt
@@ -239,7 +239,7 @@ If you want a ready-to-send message for another agent, copy this:
 Use $skill-installer.
 
 Install the skill from:
-https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.1
+https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.3
 
 Install name:
 ui-regression-recorder
@@ -250,7 +250,7 @@ After installation, restart Codex and verify the skill is available in a fresh s
 ### Option C. Manual install
 
 ```bash
-git clone --branch v0.1.1 --depth 1 https://github.com/xuxh21/ui-regression-recorder-skill.git
+git clone --branch v0.1.3 --depth 1 https://github.com/xuxh21/ui-regression-recorder-skill.git
 mkdir -p ~/.codex/skills
 cp -R ui-regression-recorder-skill ~/.codex/skills/ui-regression-recorder
 ```
@@ -291,7 +291,7 @@ Install the skill itself before configuring Playwright:
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
-  --ref v0.1.1 \
+  --ref v0.1.3 \
   --path . \
   --name ui-regression-recorder
 ```
@@ -486,7 +486,7 @@ If step N fails, first validate whether step N-1 actually completed. The visible
 
 ### Why the install is pinned
 
-Install from a release tag such as `v0.1.1`, not from `main`.
+Install from a release tag such as `v0.1.3`, not from `main`.
 
 That gives you:
 
@@ -501,7 +501,7 @@ The built-in installer does not overwrite an existing destination directory. For
 Safe upgrade example:
 
 ```bash
-export UI_REG_SKILL_VERSION=v0.1.1
+export UI_REG_SKILL_VERSION=v0.1.3
 mv ~/.codex/skills/ui-regression-recorder ~/.codex/skills/ui-regression-recorder.bak.$(date +%Y%m%d%H%M%S)
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
@@ -518,7 +518,7 @@ Then:
 
 ### Where to check versions
 
-- latest stable release: [v0.1.1](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.1)
+- latest stable release: [v0.1.3](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.3)
 - all releases: [GitHub Releases](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
 
 ## Typical Use Cases

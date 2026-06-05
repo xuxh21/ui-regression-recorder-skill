@@ -8,7 +8,7 @@
 
 > 这个 skill 的目标不是保存一段一次性的录屏脚本，而是把完整业务流程拆成可复用能力，把脚本拆成可维护的部分，并为新的请求组装出最小可运行的回归流程。
 >
-> 当前稳定版本：[v0.1.1](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.1)
+> 当前稳定版本：[v0.1.3](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.3)
 >
 > 所有版本入口：[GitHub Releases](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
 
@@ -216,7 +216,7 @@ record -> split -> register -> reuse -> assemble -> run -> refine
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
-  --ref v0.1.1 \
+  --ref v0.1.3 \
   --path . \
   --name ui-regression-recorder
 ```
@@ -228,7 +228,7 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 示例提示词：
 
 ```text
-使用 $skill-installer。安装 https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.1 这个 skill，名称设为 ui-regression-recorder。
+使用 $skill-installer。安装 https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.3 这个 skill，名称设为 ui-regression-recorder。
 ```
 
 ### Option B2. Copy-and-send prompt
@@ -239,7 +239,7 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 使用 $skill-installer。
 
 从这里安装 skill：
-https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.1
+https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.3
 
 安装后的名称：
 ui-regression-recorder
@@ -250,7 +250,7 @@ ui-regression-recorder
 ### Option C. Manual install
 
 ```bash
-git clone --branch v0.1.1 --depth 1 https://github.com/xuxh21/ui-regression-recorder-skill.git
+git clone --branch v0.1.3 --depth 1 https://github.com/xuxh21/ui-regression-recorder-skill.git
 mkdir -p ~/.codex/skills
 cp -R ui-regression-recorder-skill ~/.codex/skills/ui-regression-recorder
 ```
@@ -291,7 +291,7 @@ npm -v
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
-  --ref v0.1.1 \
+  --ref v0.1.3 \
   --path . \
   --name ui-regression-recorder
 ```
@@ -486,7 +486,7 @@ args = ["@playwright/mcp@latest", "--extension"]
 
 ### Why the install is pinned
 
-安装时请固定到 release tag，比如 `v0.1.1`，不要直接装 `main`。
+安装时请固定到 release tag，比如 `v0.1.3`，不要直接装 `main`。
 
 这样做的好处是：
 
@@ -501,7 +501,7 @@ args = ["@playwright/mcp@latest", "--extension"]
 安全升级示例：
 
 ```bash
-export UI_REG_SKILL_VERSION=v0.1.1
+export UI_REG_SKILL_VERSION=v0.1.3
 mv ~/.codex/skills/ui-regression-recorder ~/.codex/skills/ui-regression-recorder.bak.$(date +%Y%m%d%H%M%S)
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
@@ -518,7 +518,7 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 
 ### Where to check versions
 
-- 当前稳定版本：[v0.1.1](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.1)
+- 当前稳定版本：[v0.1.3](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.3)
 - 所有版本入口：[GitHub Releases](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
 
 ## Typical Use Cases
