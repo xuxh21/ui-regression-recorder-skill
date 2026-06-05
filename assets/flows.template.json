@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "operations": [],
+  "capabilities": [],
+  "history": [],
+  "templates": {
+    "operation": {
+      "slug": "",
+      "name": "",
+      "aliases": [],
+      "mode": "current-page-or-e2e",
+      "rawSpec": "tests/e2e/raw/<slug>.raw.spec.ts",
+      "spec": "tests/e2e/specs/<slug>.spec.ts",
+      "helpers": [],
+      "capabilities": [],
+      "dependsOn": [],
+      "version": 1,
+      "startPage": "",
+      "preconditions": [],
+      "postconditions": [],
+      "paramEnv": {},
+      "runCommand": "playwright test tests/e2e/specs/<slug>.spec.ts --headed --reporter=line",
+      "fastRunTemplate": "<ENV_OVERRIDES> playwright test tests/e2e/specs/<slug>.spec.ts --headed --reporter=line",
+      "headedRunTemplate": "<ENV_OVERRIDES> playwright test tests/e2e/specs/<slug>.spec.ts --headed --reporter=line",
+      "ciRunTemplate": "<ENV_OVERRIDES> playwright test tests/e2e/specs/<slug>.spec.ts --reporter=line",
+      "notes": "",
+      "history": []
+    },
+    "capability": {
+      "slug": "",
+      "name": "",
+      "aliases": [],
+      "helper": "tests/e2e/helpers/<module>.ts",
+      "export": "",
+      "sourceOperations": [],
+      "parameters": [],
+      "version": 1,
+      "startPage": "",
+      "endPage": "",
+      "preconditions": [],
+      "postconditions": []
+    },
+    "historyEntry": {
+      "type": "record|rerecord|compose|update",
+      "target": "",
+      "version": 1,
+      "rawSpec": "",
+      "changedCapabilities": [],
+      "impactedOperations": [],
+      "createdAt": "",
+      "note": ""
+    }
+  }
+}
