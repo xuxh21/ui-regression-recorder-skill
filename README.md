@@ -8,6 +8,30 @@ This skill is built around one idea:
 
 It turns "I want to verify a page behavior" into an automation flow that is reusable, maintainable, and traceable.
 
+## Underlying Principle
+
+The core idea is not "record once, replay forever".
+
+The core idea is:
+
+1. take one complete business flow as source material
+2. decompose it into stable business capabilities
+3. decompose the script into reusable helpers and specs
+4. register those capabilities in a machine-readable map
+5. assemble new business flows from old capabilities
+
+In other words, this skill treats UI regression as workflow compilation, not script archiving.
+
+One recording may contain many reusable pieces:
+
+- open module
+- search workspace
+- create workspace
+- create asset
+- verify duplicate rejection
+
+Once these pieces exist, a later request does not need a brand new end-to-end script. The skill can plan the new target flow, find matching capabilities, and assemble a new runnable script from them.
+
 ## What This Skill Solves
 
 Normal Playwright recording solves only the first step: "can we record clicks?"
@@ -35,6 +59,66 @@ The workflow is:
 7. Only record again when a capability is truly missing or stale.
 8. Run the regression in a visible browser unless the user explicitly wants CI/headless mode.
 
+## Skill Working Principle
+
+This skill works as a four-stage system:
+
+### 1. Business decomposition
+
+The skill first converts the user request into ordered business steps.
+
+Example:
+
+```text
+Goal: validate same-space workspace duplicate rejection
+Steps:
+1. enter target space
+2. open UI design
+3. create workspace once
+4. create same workspace again
+5. verify duplicate rejection
+```
+
+This happens before selecting any script.
+
+### 2. Capability matching
+
+Each business step is matched against the capability registry in `flows.json`, shared helpers, and known specs.
+
+The skill does not start by picking the most similar full spec. It starts by asking:
+
+- which step already exists as a capability
+- which step can be reused with different parameters
+- which step is missing and must be recorded
+
+### 3. Script decomposition and assembly
+
+A full recording is never treated as the only final artifact.
+
+The skill splits it into:
+
+- raw recording
+- cleaned spec
+- shared helpers
+- capability metadata
+
+Then, for a new business request, it assembles a new runnable flow from those reusable pieces.
+
+That means the system can do both:
+
+- split one old script into smaller capabilities
+- combine several old capabilities into one new script
+
+### 4. Visible execution and feedback
+
+After assembly, the skill runs the smallest valid flow in a headed browser by default. If the run fails, it backtracks through previous capability postconditions instead of blindly patching the current selector.
+
+So the loop is:
+
+```text
+record -> split -> register -> reuse -> assemble -> run -> refine
+```
+
 ## Why It Is Different
 
 This skill does not treat a recorded spec as the final asset.
@@ -49,6 +133,14 @@ The final asset is a capability map:
 - `verify created row`
 
 Once these are extracted, later flows become compositions of existing capabilities instead of fresh recordings.
+
+This is also why the skill can support "new business from old assets":
+
+- old business flow A gives capabilities `a`, `b`, `c`
+- old business flow B gives capabilities `c`, `d`, `e`
+- new business flow C may be assembled as `a + c + e`
+
+The skill is designed to make that composition possible and maintainable.
 
 ## Practical Example
 

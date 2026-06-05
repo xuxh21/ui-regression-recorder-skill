@@ -7,6 +7,31 @@ description: Use when the user says to initialize the current project for UI reg
 
 Use this skill to turn a human UI flow into a reusable regression test. Prefer Chinese responses unless the repository uses English-only docs.
 
+## Skill Model
+
+This skill is not a recorder-only workflow. It is a planner plus capability registry plus script assembler.
+
+Use this mental model:
+
+1. The user gives a business goal.
+2. The skill decomposes that goal into ordered business steps.
+3. The skill matches each step against existing capabilities, helpers, specs, and raw recordings.
+4. The skill assembles the shortest runnable flow from reusable pieces.
+5. The skill records only the missing or stale capability when reuse is insufficient.
+
+Think in three layers:
+
+- **Business layer**: what the user wants to validate
+- **Capability layer**: reusable actions such as open page, create workspace, verify row
+- **Script layer**: raw specs, cleaned specs, helpers, and run commands
+
+One complete recording should usually produce both:
+
+- one full operation
+- several reusable capabilities
+
+Later, new business flows should be composed from existing capabilities whenever possible instead of copied from one large historical script.
+
 ## Speed Policy
 
 Speed matters. If the automated flow is slower than a human, it is not useful. Default to fast execution after a flow is known.
