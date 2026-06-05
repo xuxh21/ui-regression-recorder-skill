@@ -1,5 +1,7 @@
 # UI Regression Recorder
 
+[![Release](https://img.shields.io/github/v/release/xuxh21/ui-regression-recorder-skill)](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
+
 [English](./README.md)
 
 把一次人工 UI 流程沉淀成可复用的自动化能力，再基于这些能力组装新的业务流程，而不是每来一个需求就重录一遍。
@@ -227,6 +229,22 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 
 ```text
 使用 $skill-installer。安装 https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.1 这个 skill，名称设为 ui-regression-recorder。
+```
+
+### Option B2. Copy-and-send prompt
+
+如果你想直接复制一段话发给另一个 agent，可以用这段：
+
+```text
+使用 $skill-installer。
+
+从这里安装 skill：
+https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.1
+
+安装后的名称：
+ui-regression-recorder
+
+安装完成后，重启 Codex，并在新会话里确认 skill 已经可用。
 ```
 
 ### Option C. Manual install

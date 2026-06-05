@@ -1,5 +1,7 @@
 # UI Regression Recorder
 
+[![Release](https://img.shields.io/github/v/release/xuxh21/ui-regression-recorder-skill)](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
+
 [中文](./README.zh-CN.md)
 
 Turn one human UI flow into reusable automation capabilities, then assemble new business flows from those capabilities instead of recording everything again.
@@ -227,6 +229,22 @@ Example prompt:
 
 ```text
 Use $skill-installer. Install https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.1 as ui-regression-recorder.
+```
+
+### Option B2. Copy-and-send prompt
+
+If you want a ready-to-send message for another agent, copy this:
+
+```text
+Use $skill-installer.
+
+Install the skill from:
+https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.1
+
+Install name:
+ui-regression-recorder
+
+After installation, restart Codex and verify the skill is available in a fresh session.
 ```
 
 ### Option C. Manual install
