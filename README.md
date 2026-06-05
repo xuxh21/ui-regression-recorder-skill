@@ -210,22 +210,25 @@ Recommended when the target agent already has the built-in Codex skill installer
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
+  --ref v0.1.0 \
   --path . \
   --name ui-regression-recorder
 ```
+
+This keeps the install pinned to a known release instead of drifting with `main`.
 
 ### Option B. Give an agent the GitHub link directly
 
 Example prompt:
 
 ```text
-Use $skill-installer. Install https://github.com/xuxh21/ui-regression-recorder-skill as ui-regression-recorder.
+Use $skill-installer. Install https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.0 as ui-regression-recorder.
 ```
 
 ### Option C. Manual install
 
 ```bash
-git clone https://github.com/xuxh21/ui-regression-recorder-skill.git
+git clone --branch v0.1.0 --depth 1 https://github.com/xuxh21/ui-regression-recorder-skill.git
 mkdir -p ~/.codex/skills
 cp -R ui-regression-recorder-skill ~/.codex/skills/ui-regression-recorder
 ```
@@ -266,6 +269,7 @@ Install the skill itself before configuring Playwright:
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
+  --ref v0.1.0 \
   --path . \
   --name ui-regression-recorder
 ```

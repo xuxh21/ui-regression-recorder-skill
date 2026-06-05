@@ -210,22 +210,25 @@ record -> split -> register -> reuse -> assemble -> run -> refine
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
+  --ref v0.1.0 \
   --path . \
   --name ui-regression-recorder
 ```
+
+这样安装会固定在一个明确 release 上，不会随着 `main` 漂移。
 
 ### Option B. Give an agent the GitHub link directly
 
 示例提示词：
 
 ```text
-使用 $skill-installer。安装 https://github.com/xuxh21/ui-regression-recorder-skill 这个 skill，名称设为 ui-regression-recorder。
+使用 $skill-installer。安装 https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.0 这个 skill，名称设为 ui-regression-recorder。
 ```
 
 ### Option C. Manual install
 
 ```bash
-git clone https://github.com/xuxh21/ui-regression-recorder-skill.git
+git clone --branch v0.1.0 --depth 1 https://github.com/xuxh21/ui-regression-recorder-skill.git
 mkdir -p ~/.codex/skills
 cp -R ui-regression-recorder-skill ~/.codex/skills/ui-regression-recorder
 ```
@@ -266,6 +269,7 @@ npm -v
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
+  --ref v0.1.0 \
   --path . \
   --name ui-regression-recorder
 ```
