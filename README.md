@@ -1,10 +1,10 @@
-# UI Regression Recorder
+# UI Page Automation Testing Skill
 
 [![Release](https://img.shields.io/github/v/release/xuxh21/ui-regression-recorder-skill)](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
 
 [中文](./README.zh-CN.md)
 
-Turn one human UI flow into reusable automation capabilities, then assemble new business flows from those capabilities instead of recording everything again.
+Turn one human UI page flow into reusable automation capabilities, then assemble new testing flows from those capabilities instead of recording everything again.
 
 > This skill is not about saving a one-off screen recording script. It decomposes a full business flow into reusable capabilities, splits the script into maintainable parts, and assembles the smallest runnable regression for a new request.
 >

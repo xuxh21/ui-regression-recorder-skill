@@ -1,10 +1,10 @@
-# UI Regression Recorder
+# UI 页面自动化测试 Skill
 
 [![Release](https://img.shields.io/github/v/release/xuxh21/ui-regression-recorder-skill)](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
 
 [English](./README.md)
 
-把一次人工 UI 流程沉淀成可复用的自动化能力，再基于这些能力组装新的业务流程，而不是每来一个需求就重录一遍。
+把一次人工 UI 页面操作沉淀成可复用的自动化能力，再基于这些能力组装新的测试流程，而不是每来一个需求就重录一遍。
 
 > 这个 skill 的目标不是保存一段一次性的录屏脚本，而是把完整业务流程拆成可复用能力，把脚本拆成可维护的部分，并为新的请求组装出最小可运行的回归流程。
 >
