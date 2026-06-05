@@ -5,6 +5,10 @@
 把一次人工 UI 流程沉淀成可复用的自动化能力，再基于这些能力组装新的业务流程，而不是每来一个需求就重录一遍。
 
 > 这个 skill 的目标不是保存一段一次性的录屏脚本，而是把完整业务流程拆成可复用能力，把脚本拆成可维护的部分，并为新的请求组装出最小可运行的回归流程。
+>
+> 当前稳定版本：[v0.1.1](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.1)
+>
+> 所有版本入口：[GitHub Releases](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
 
 ## Overview
 
@@ -210,7 +214,7 @@ record -> split -> register -> reuse -> assemble -> run -> refine
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
-  --ref v0.1.0 \
+  --ref v0.1.1 \
   --path . \
   --name ui-regression-recorder
 ```
@@ -222,13 +226,13 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 示例提示词：
 
 ```text
-使用 $skill-installer。安装 https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.0 这个 skill，名称设为 ui-regression-recorder。
+使用 $skill-installer。安装 https://github.com/xuxh21/ui-regression-recorder-skill/tree/v0.1.1 这个 skill，名称设为 ui-regression-recorder。
 ```
 
 ### Option C. Manual install
 
 ```bash
-git clone --branch v0.1.0 --depth 1 https://github.com/xuxh21/ui-regression-recorder-skill.git
+git clone --branch v0.1.1 --depth 1 https://github.com/xuxh21/ui-regression-recorder-skill.git
 mkdir -p ~/.codex/skills
 cp -R ui-regression-recorder-skill ~/.codex/skills/ui-regression-recorder
 ```
@@ -269,7 +273,7 @@ npm -v
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo xuxh21/ui-regression-recorder-skill \
-  --ref v0.1.0 \
+  --ref v0.1.1 \
   --path . \
   --name ui-regression-recorder
 ```
@@ -459,6 +463,45 @@ args = ["@playwright/mcp@latest", "--extension"]
 ### 6. Backtrack failures
 
 如果第 N 步失败，先检查第 N-1 步是不是真的完成了。页面上看到的失败点，经常不是根因点。
+
+## Versioning and Upgrade
+
+### Why the install is pinned
+
+安装时请固定到 release tag，比如 `v0.1.1`，不要直接装 `main`。
+
+这样做的好处是：
+
+- 安装结果可复现
+- 回滚点清晰
+- release notes 和实际安装内容能对应上
+
+### How to upgrade safely
+
+内置安装脚本不会覆盖一个已经存在的目标目录。所以升级时，要先替换旧 skill 目录，再安装新的 tag。
+
+安全升级示例：
+
+```bash
+export UI_REG_SKILL_VERSION=v0.1.1
+mv ~/.codex/skills/ui-regression-recorder ~/.codex/skills/ui-regression-recorder.bak.$(date +%Y%m%d%H%M%S)
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo xuxh21/ui-regression-recorder-skill \
+  --ref "${UI_REG_SKILL_VERSION}" \
+  --path . \
+  --name ui-regression-recorder
+```
+
+然后：
+
+1. 重启 Codex
+2. 新开一个会话
+3. 验证 skill 已经可用
+
+### Where to check versions
+
+- 当前稳定版本：[v0.1.1](https://github.com/xuxh21/ui-regression-recorder-skill/releases/tag/v0.1.1)
+- 所有版本入口：[GitHub Releases](https://github.com/xuxh21/ui-regression-recorder-skill/releases)
 
 ## Typical Use Cases
 
